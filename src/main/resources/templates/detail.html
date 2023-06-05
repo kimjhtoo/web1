@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="당신을 위한 복지, 여행 Tuflex ">
+    <meta property="og:image" content="http://tuflex.kr/img/bg.jpg">
+    <meta property="og:title" content="Tuflex " />
+    <meta property="og:description" content="당신을 위한 복지, 여행 Tuflex  " />
+    <meta property="og:url" content="http://tuflex.kr" />
+    <meta property="og:image" content="http://tuflex.kr/img/bg.jpg">
+    <meta property="og:title" content="Tuflex " />
+    <meta property="og:description" content="당신을 위한 복지, 여행 Tuflex  " />
+    <meta property="og:url" content="http://tuflex.kr" />
+    <title>Tuflex </title>
+
+    <!-- Favicons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/img/site.webmanifest">
+    <link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="/css/bootstrap-rtl.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/vendors.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+</head>
+
+<body class="datepicker_mobile_full"><!-- Remove this class to disable datepicker full on mobile -->
+
+    <div id="page" class="theia-exception">
+
+        <header class="header menu_fixed">
+            <div id="preloader">
+                <div data-loader="circle-side"></div>
+            </div><!-- /Preload -->
+            <div id="logo">
+                <a href="/">
+                    <img src="/img/logo.jpg?v=1" width="150" height="36" alt="" class="logo_normal">
+                    <img src="/img/logo.jpg?v=1" width="150" height="36" alt="" class="logo">
+                </a>
+            </div>
+
+            <a href="#menu" class="btn_mobile">
+                <div class="hamburger hamburger--spin" id="hamburger">
+                    <div class="hamburger-box">
+                        <div class="hamburger-inner"></div>
+                    </div>
+                </div>
+            </a>
+            <nav id="menu" class="main-menu">
+                <ul th:if="${name == ''}">
+                    <li><span><a href="/">홈</a></span></li>
+                    <li><span><a href="/help">고객센터</a></span></li>
+                    <li><span><a href="/cart">장바구니</a></span></li>
+                    <li><span><a href="/signup">회원가입</a></span></li>
+                    <li><span><a href="/login">로그인</a></span></li>
+                </ul>
+                <ul th:if="${name != ''}">
+                    <li><span><a href="/">홈</a></span></li>
+                    <li><span><a href="/help">고객센터</a></span></li>
+                    <li><span><a href="/cart">장바구니</a></span></li>
+                    <li><span><a href="#" th:text="${name}"></a></span></li>
+                </ul>
+            </nav>
+        </header>
+        <!-- /header -->
+
+        <main>
+            <input type="hidden" id="x" th:value="${hotel.getLatitude()}">
+            <input type="hidden" id="y" th:value="${hotel.getLongitude()}">
+            <section class="hero_in hotels_detail">
+                <div class="wrapper">
+                    <div class="container">
+                        <h1 class="fadeInUp" th:text="${hotel.getName()}"><span></span></h1>
+                    </div>
+                    <span class="magnific-gallery">
+                        <a th:href="${photos.get(0)}" class="btn_photos" title="Photo title"
+                            data-effect="mfp-zoom-in">View
+                            photos</a>
+                        <a th:href="${photos.get(1)}" title="Photo title" data-effect="mfp-zoom-in"></a>
+                        <a th:href="${photos.get(2)}" title="Photo title" data-effect="mfp-zoom-in"></a>
+                    </span>
+                </div>
+            </section>
+            <!--/hero_in-->
+
+            <div class="bg_color_1">
+                <nav class="secondary_nav sticky_horizontal">
+                    <div class="container">
+                        <ul class="clearfix">
+                            <li><a href="#description" class="active">숙소 정보</a></li>
+                            <li><a href="#reviews">Reviews</a></li>
+                            <li><a href="#sidebar">Booking</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container margin_60_35">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <section id="description">
+                                <h2 th:text="${hotel.getName()}"></h2>
+                                <p th.text="${hotel.getIntroduce()}">
+                                </p>
+                                <!-- /row -->
+                                <hr>
+
+                                <h3>숙소 사진</h3>
+                                <div class="pictures_grid magnific-gallery clearfix">
+                                    <figure th:each="photo, iterator : ${photos}"><a th:href="${photo}"
+                                            title="Photo title" data-effect="mfp-zoom-in"><img th:src="${photo}"
+                                                alt=""></a></figure>
+                                </div>
+                                <!-- /pictures -->
+
+                                <hr>
+                                <div class="room_type first" th:each="product, iterator : ${hotel.getProducts()}">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img th:src="${product.getImageUrl()}" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h4 th:text="${product.getName()}"></h4>
+                                            <p th:text="${product.getInformation()}"></p>
+                                        </div>
+                                    </div>
+                                    <!-- /row -->
+                                </div>
+                                <!-- /rom_type -->
+                                <hr>
+                                <h3>위치</h3>
+                                <div id="map" class="map map_single add_bottom_30"></div>
+                                <!-- End Map -->
+                            </section>
+                            <!-- /section -->
+
+                            <section id="reviews">
+                                <h2>후기</h2>
+                                <div class="reviews-container">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div id="review_summary">
+                                                <strong th:text="${hotel.getRating()}"></strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            th:style="'width: ' + ${rate5_} + '%'"
+                                                            th:aria-valuenow="${rate5_}" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>5 stars</strong></small>
+                                                </div>
+                                            </div>
+                                            <!-- /row -->
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            th:style="'width: ' + ${rate4_} + '%'"
+                                                            th:aria-valuenow="${rate4_}" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>4 stars</strong></small>
+                                                </div>
+                                            </div>
+                                            <!-- /row -->
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            th:style="'width: ' + ${rate3_} + '%'"
+                                                            th:aria-valuenow="${rate3_}" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>3 stars</strong></small>
+                                                </div>
+                                            </div>
+                                            <!-- /row -->
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            th:style="'width: ' + ${rate2_} + '%'"
+                                                            th:aria-valuenow="${rate2_}" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>2 stars</strong></small>
+                                                </div>
+                                            </div>
+                                            <!-- /row -->
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            th:style="'width: ' + ${rate1_} + '%'"
+                                                            th:aria-valuenow="${rate1_}" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>1 stars</strong></small>
+                                                </div>
+                                            </div>
+                                            <!-- /row -->
+                                        </div>
+                                    </div>
+                                    <!-- /row -->
+                                </div>
+
+                                <hr>
+
+                                <div class="reviews-container" th:each="review, iterator : ${reviews}">
+
+                                    <div class="review-box clearfix">
+                                        <div class="rev-content">
+                                            <div class="rating">
+                                                <i class="icon_star voted"
+                                                    th:each="i: ${#numbers.sequence(0, review.getRate() - 1)}"></i>
+                                            </div>
+                                            <div class="rev-info"
+                                                th:text="${review.getName() + ' - ' + review.getRegDt()}">
+                                            </div>
+                                            <div class="rev-text">
+                                                <p th:text="${review.getContent()}">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /review-box -->
+                                </div>
+                                <!-- /review-container -->
+                            </section>
+                            <!-- /section -->
+                            <hr>
+
+                            <div class="add-review">
+                                <h5>후기 작성하기</h5>
+                                <form id="review_form">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>별점 </label>
+                                            <input type="hidden" id="hid" th:value="${hotel.getPid()}">
+                                            <div class="custom-select-form">
+                                                <select name="rating_review" id="rating_review" class="wide">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5" selected>5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>내용</label>
+                                            <textarea name="review_text" id="review_text" class="form-control"
+                                                style="height:130px;"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-12 add_top_20">
+                                            <input type="submit" value="Submit" class="btn_1" id="submit-review">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /col -->
+
+                        <aside class="col-lg-4" id="sidebar">
+                            <div class="box_detail booking">
+                                <div class="price" th:if="${hotel.getProducts().size() > 0}">
+                                    <div class="score"><span>1인 <em></em></span><strong id="price"
+                                            th:text="${hotel.getProducts().get(0).getPrice()}"></strong></div>
+                                </div>
+
+                                <div class="form-group input-dates">
+                                    <input type="hidden" id="start_date" th:value="${startDate}">
+                                    <input type="hidden" id="end_date" th:value="${endDate}">
+                                    <input class="form-control" type="text" name="dates"
+                                        th:value="${startDate} + ' ~ ' + ${endDate}">
+                                    <i class="icon_calendar"></i>
+                                </div>
+
+                                <div class="panel-dropdown">
+                                    <a id="guests" href="#">누구와 떠나나요? <span class="qtyTotal"
+                                            style="display: none;"></span></a>
+                                    <div class="panel-dropdown-content">
+                                        <!-- Quantity Buttons -->
+                                        <div class="qtyButtons">
+                                            <label>성인</label>
+                                            <input type="text" name="qtyInput" id="adult" th:value="${adult}">
+                                        </div>
+                                        <div class="qtyButtons">
+                                            <label>아동</label>
+                                            <input type="text" name="qtyInput" id="child" th:value="${child}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <div class="custom-select-form">
+                                        <select id="room_type" class="wide"
+                                            th:each="product, iterator : ${hotel.getProducts()}">
+                                            <option th:data-price="${product.getPrice()}" th:value="${product.getPid()}"
+                                                th:text="${product.getName()}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <a href="javascript:cart()" class=" add_top_30 btn_1 full-width purchase">예약하기</a>
+                                <a href="javascript:addCart()" class="btn_1 full-width outline wishlist"><i
+                                        class="icon_heart"></i> 장바구니에 추가하기</a>
+                            </div>
+                        </aside>
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+            </div>
+            <!-- /bg_color_1 -->
+        </main>
+        <!--/main-->
+
+
+        <footer>
+            <div class="container margin_60_35">
+
+                <div class="row">
+                    <div class="col-lg-5 col-md-12 pe-5">
+                        <p><img src="img/logo.jpg" width="150" height="36" alt=""></p>
+                        <p>너무 좋습니다. 너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무
+                            좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무 좋습니다.너무</p>
+                        <div class="follow_us">
+                            <ul>
+                                <li>Follow us</li>
+                                <li><a href="#0"><i class="ti-facebook"></i></a></li>
+                                <li><a href="#0"><i class="ti-twitter-alt"></i></a></li>
+                                <li><a href="#0"><i class="ti-google"></i></a></li>
+                                <li><a href="#0"><i class="ti-pinterest"></i></a></li>
+                                <li><a href="#0"><i class="ti-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ms-lg-auto">
+                        <h5>바로가기</h5>
+                        <ul class="links">
+                            <li><a href="/">HOME</a></li>
+                            <li><a href="notice">공지사항</a></li>
+                            <li><a href="help">고객센터</a></li>
+                            <li><a href="cart">장바구니</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h5>고객센터</h5>
+                        <ul class="contacts">
+                            <li><a href="tel://15880155"><i class="ti-mobile"></i> + 1588-0155</a></li>
+                            <li><a href="mailto:tuflex@tuflex.kr"><i class="ti-email"></i> tuflex@tuflex.kr</a></li>
+                        </ul>
+                        <div id="newsletter">
+                            상담시간: 10:00 ~ 16:00 (토, 일, 공휴일 휴무)
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <!--/footer-->
+    </div>
+    <!-- page -->
+
+    <div id="toTop"></div><!-- Back to top button -->
+
+    <!-- COMMON SCRIPTS -->
+    <script src="/js/common_scripts.js"></script>
+    <script src="/js/main_rtl.js"></script>
+    <script src="phpmailer/validate.js"></script>
+
+    <!-- Map -->
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ebc6b24e32ddea45c807273844256d80"></script>
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(parseFloat($('#x').val()), parseFloat($('#y').val())), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: new kakao.maps.LatLng(parseFloat($('#x').val()), parseFloat($('#y').val())),
+            clickable: true
+        });
+    </script>
+
+    <!-- DATEPICKER  -->
+    <script>
+        $(function () {
+            if ($('#adult').val() > 0 && $('#child').val() > 0) {
+                $('#guests').text('성인 ' + $('#adult').val() + '명, 아동 ' + $('#child').val() + '명');
+            } else if ($('#adult').val() > 0) {
+                $('#guests').text('성인 ' + $('#adult').val() + '명');
+            } else if ($('#child').val() > 0) {
+                $('#guests').text('아동 ' + $('#child').val() + '명');
+            }
+            $('input[name="dates"]').daterangepicker({
+                autoUpdateInput: false,
+                minDate: new Date(),
+                locale: {
+                    cancelLabel: '초기화',
+                    applyLabel: '적용'
+                }
+            }, function (start, end, label) {
+                $('#start_date').val(start);
+                $('#end_date').val(end);
+            });
+            $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+                $('#start_date').val(picker.startDate.format('YYYY-MM-DD'));
+                $('#end_date').val(picker.endDate.format('YYYY-MM-DD'));
+            });
+            $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
+            });
+            $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $('#start_date').val('');
+                $('#end_date').val('');
+            });
+            $(document).on('change', '#room_type', function () {
+                $('#price').text($(this).data('price'));
+            });
+            $('#review_form').submit(function (e) {
+                e.preventDefault();
+                var data = JSON.stringify({hid: $('#hid').val(), rating: $('#rating_review').val(), content: $('#review_text').val()});
+                $.ajax({
+                    url: "/api/review/register.do", type: 'POST', data: data,
+                    contentType: "application/json;charset=UTF-8",
+                    complete: function (e, xhr, settings) {
+                        if (e.status == 200) {
+                            location.reload();
+                        } else {
+
+                        }
+                    }
+                });
+            })
+        });
+        function cart() {
+            var data = JSON.stringify({rid: $('#room_type').val(), startDate: $('#start_date').val(), endDate: $('#end_date').val(), adult: $('#adult').val(), child: $('#child').val()});
+            $.ajax({
+                url: "/api/cart/register.do", type: 'POST', data: data,
+                contentType: "application/json;charset=UTF-8",
+                complete: function (e, xhr, settings) {
+                    if (e.status == 200) {
+                        location.href = '/cart';
+                    } else {
+
+                    }
+                }
+            });
+        }
+        function addCart() {
+            var data = JSON.stringify({rid: $('#room_type').val(), startDate: $('#start_date').val(), endDate: $('#end_date').val(), adult: $('#adult').val(), child: $('#child').val()});
+            $.ajax({
+                url: "/api/cart/register.do", type: 'POST', data: data,
+                contentType: "application/json;charset=UTF-8",
+                complete: function (e, xhr, settings) {
+                    if (e.status == 200) {
+                    } else {
+
+                    }
+                }
+            });
+        }
+    </script>
+
+    <!-- INPUT QUANTITY  -->
+    <script src="/js/input_qty.js"></script>
+
+</body>
+
+</html>
